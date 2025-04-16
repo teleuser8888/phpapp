@@ -1,0 +1,190 @@
+
+
+    Comandi Docker fondamentali:
+    Lista container e immagini
+
+    Per vedere la lista di tutti i container sulla macchina (accesi/spenti). Togliere "-a" per vedere solo quelli in esecuzione:
+
+    sudo docker ps -a
+
+    Per vedere la lista di tutte le immagini che abbiamo localmente:
+
+    sudo docker image ls
+
+    Per vedere la lista di tutte le reti che abbiamo dentro Docker:
+
+    sudo docker network ls
+    Gestione container e immagini
+
+    Per creare un container:
+
+    sudo docker run -dit --name <nomeContainer> <argomenti> <nomeImmagine>:<tagImmagine>
+        Argomenti
+
+        Per indicare le porte:
+
+        -p <portaHost>:<portaContainer>
+
+        per creare un volume:
+
+        -v <percorsoHost>:<percorsoContainer>
+
+        Esempio:
+        -v /home/studente/Scrivania/Esame17/db_data:/var/lib/mysql
+
+        per assegnare delle variabili d'ambiente
+
+        -e <NOME_VARIABILE>=<VALORE>
+
+        Esempio:
+        -e MYSQL_ROOT_PASSWORD=my-secret-pw
+
+    Per stoppare un container:
+
+    sudo docker stop <nomeContainer>
+
+    Per riavviare un container:
+
+    sudo docker restart <nomeContainer>
+
+    Per rimuovere un container creato:
+
+    RICORDA: prima di cancellare un container bisogna stopparlo!!!
+
+    sudo docker rm <nomeContainer>
+
+    Per rimuovere un'immagine:
+
+    RICORDA: per cancellare un'immagine, non devono esistere container che utilizzino quell'immagine!!!
+
+    sudo docker image rm <nomeContainer>
+
+    Per entrare nella shell interna del container (per guardare cartelle, file, lanciare comandi, etc):
+
+    sudo docker exec -it <nomeContainer> /bin/bash
+
+    Per visualizzare i log del container (per controllare errori o l'effettivo funzionamento):
+
+    sudo docker logs -it <nomeContainer>
+
+    Per avere informazioni sul container (indirizzo IP, etc)
+
+    sudo docker inspect <nomeContainer>
+
+    Gestione DockerFile
+
+    Per creare un'immagine con un file Dockerfile:
+
+    Posizionatevi col terminale nella cartella che contiene il file, poi lanciate il comando
+
+    sudo docker build -t <nome-immagine> .
+
+    Gestione Docker Compose
+
+    Posizionatevi col terminale nella cartella che contiene il file, poi lanciate il comando.
+
+    Per eseguire uno stack con Docker Compose:
+
+    sudo docker compose up -d
+
+    Per eseguire uno stack Docker Compose con altro nome: (USATE QUESTO!)
+
+    sudo docker compose -f <nome-file.yaml> up -d
+
+    Per stoppare e rimuovere uno stack Docker Compose:
+
+    sudo docker compose down
+
+    Per stoppare e rimuovere uno stack Docker Compose con altro nome: (USATE QUESTO!)
+
+    sudo docker compose -f <nome-file.yaml> down
+
+    NOTA BENE: Il Docker Compose che hai appena scaricato ASSEGNA DA SUBITO UN IP STATICO AL DB,
+    così non avrai problemi con l'indirizzo IP inserito nella pagina PHP. NON MODIFICARE!!!
+
+    Comandi MySQL
+
+    Una volta all'interno del container MySQL, lanciare il comando per entrare nel terminale di MySQL:
+
+    mysql -u user -p
+
+    ed inserire la password ("password")
+
+    Lanciate il comando:
+
+    SHOW DATABASES;
+
+    e controllate che sia presente il db creato dal Docker Compose (deve avere lo stesso nome che avete inserito voi)
+
+    Lanciate il comando:
+
+    USE <nomeDB>;
+
+    e la console vi risponderà con "Database changed"
+
+    Usate il codice qui sotto per creare una tabella.
+    Sostituite i campi tra "< >" (compresi!) con ciò che viene richiesto.
+
+    CONSIGLIO: COPIATE RIGA PER RIGA, COSÌ AVETE LA POSSIBILITÀ DI MODIFICARE CIÒ CHE AVETE COPIATO!
+
+    CREATE TABLE <nomeTabella>(
+        ID INT NOT NULL AUTO_INCREMENT,
+        <primaColonna> VARCHAR(255) NOT NULL,
+        <secondaColonna> VARCHAR(255) NOT NULL,
+        <terzaColonna> VARCHAR(255) NOT NULL,
+        PRIMARY KEY (ID)
+    );
+                        
+
+    Usate il codice qui sotto per inserire i dati nella tabella.
+    Sostituite i campi tra "< >" (compresi!) con ciò che viene richiesto.
+
+    CONSIGLIO: COPIATE RIGA PER RIGA, COSÌ AVETE LA POSSIBILITÀ DI MODIFICARE CIÒ CHE AVETE COPIATO!
+
+    INSERT INTO <nomeTabella>(<primaColonna>, <secondaColonna>, <terzaColonna>)
+        VALUES
+        ("Valore1", "Valore2", "Valore3"),
+        ("Valore1", "Valore2", "Valore3"),
+        ("Valore1", "Valore2", "Valore3"),
+        ("Valore1", "Valore2", "Valore3")
+    ;
+                        
+
+    Usate il codice qui sotto per aggiungere una colonna alla tabella.
+    Sostituite i campi tra "< >" (compresi!) con ciò che viene richiesto.
+
+    CONSIGLIO: COPIATE RIGA PER RIGA, COSÌ AVETE LA POSSIBILITÀ DI MODIFICARE CIÒ CHE AVETE COPIATO!
+
+    ALTER TABLE <nomeTabella>
+    ADD <nomeColonna> <tipo> <argomento>;
+                        
+
+    Usate il codice qui sotto per modificare il nome di una colonna della tabella.
+    Sostituite i campi tra "< >" (compresi!) con ciò che viene richiesto.
+
+    CONSIGLIO: COPIATE RIGA PER RIGA, COSÌ AVETE LA POSSIBILITÀ DI MODIFICARE CIÒ CHE AVETE COPIATO!
+
+    ALTER TABLE <nomeTabella>
+    RENAME COLUMN <nomeVecchio> TO <nomeNuovo>;
+                        
+
+    Installare XAMPP
+
+    CLICCA QUI per scaricare l'eseguibile di XAMPP (Linux x64)
+
+    Spostare il file scaricato nella tua cartella, poi aprire un terminale da qui (Tasto destro -> Apri terminale qui)
+
+    Cambiare i permessi del file d'installazione:
+
+    chmod 755 xampp-linux-8.2.12-0-installer.run
+
+    Avvia l'installazione:
+
+    sudo ./xampp-linux-8.2.12-0-installer.run
+
+    Clicca sempre "Avanti, poi "Fine"
+
+    PER RIAPRIRE LA FINESTRA DI XAMPP (magari dopo un riavvio o perché l'hai chiusa):
+
+    sudo /opt/lampp/manager-linux-x64.run
+
